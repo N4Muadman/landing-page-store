@@ -42,7 +42,7 @@ class Product extends Model
     }
 
     public function contacts(){
-        return $this->hasMany(Contact::class);
+        return $this->hasMany(Order::class);
     }
 
 }

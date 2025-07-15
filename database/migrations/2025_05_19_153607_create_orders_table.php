@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
+            $table->foreignId('product_option_id')->nullable()->constrained('product_options')->onDelete('set null');
             $table->string('name');
             $table->string('phone_number');
             $table->string('address')->nullable();
             $table->integer('quantity')->nullable();
-            $table->string('option')->nullable();
+            $table->enum('status', ['pending', 'processing', 'completed','cancelled'])->default('pending');
+            $table->boolean('is_consulted')->default(false);
+            $table->timestamp('consulted_at')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

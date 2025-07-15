@@ -15,7 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_admin' => CheckLogin::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'place-order',
+            'admin/quan-ly-san-pham/*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+
     })->create();

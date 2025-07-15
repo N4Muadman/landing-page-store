@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comment_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
-            $table->string('image_path');
+            $table->string('path');
             $table->timestamps();
         });
     }

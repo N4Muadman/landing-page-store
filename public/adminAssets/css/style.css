@@ -35950,3 +35950,7 @@ div.dataTables_wrapper div.dt-row {
     align-items: center;
     justify-content: center;
 }
+
+#cke_1_contents{
+    height: 600px !important;
+}

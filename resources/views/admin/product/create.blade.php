@@ -343,7 +343,6 @@
             filebrowserUploadMethod: 'form'
         });
 
-        // Generate slug from title
         document.getElementById('productTitle').addEventListener('input', function() {
             const name = this.value;
             const slug = name.toLowerCase()
@@ -357,7 +356,6 @@
             document.getElementById('productSlug').value = slug;
         });
 
-        // Product Images Upload
         const fileUpload = document.getElementById('file-upload');
         const uploadArea = document.getElementById('upload-area');
         const previewContainer = document.getElementById('image-preview-container');
@@ -414,10 +412,14 @@
                 const index = parseInt(btn.getAttribute('data-index'));
                 uploadedFiles.splice(index, 1);
                 btn.parentElement.remove();
+
+                const buttons = previewContainer.querySelectorAll('.delete-btn');
+                buttons.forEach((button, i) => {
+                    button.setAttribute('data-index', i);
+                });
             }
         });
 
-        // Feedback Images Upload
         const feedbackFileUpload = document.getElementById('feedback-file-upload');
         const feedbackUploadArea = document.getElementById('feedback-upload-area');
         const feedbackPreviewContainer = document.getElementById('feedback-preview-container');
@@ -474,10 +476,14 @@
                 const index = parseInt(btn.getAttribute('data-index'));
                 feedbackFiles.splice(index, 1);
                 btn.parentElement.remove();
+
+                const buttons = feedbackPreviewContainer.querySelectorAll('.delete-btn');
+                buttons.forEach((button, i) => {
+                    button.setAttribute('data-index', i);
+                });
             }
         });
 
-        // Product Options
         document.getElementById('add-option').addEventListener('click', function() {
             const container = document.getElementById('product-options');
             const newOption = document.createElement('div');
@@ -507,7 +513,6 @@
             }
         });
 
-        // Customer Comments
         document.getElementById('add-comment').addEventListener('click', function() {
             const container = document.getElementById('customer-comments');
             const newComment = document.createElement('div');
@@ -582,7 +587,6 @@
             commentIndex++;
         });
 
-        // Handle comment removal
         document.getElementById('customer-comments').addEventListener('click', function(e) {
             if (e.target.closest('.remove-comment')) {
                 const commentItem = e.target.closest('.comment-item');
@@ -593,7 +597,6 @@
             }
         });
 
-        // Handle avatar upload
         document.addEventListener('change', function(e) {
             if (e.target.matches('[id^="avatar-upload-"]')) {
                 const file = e.target.files[0];
@@ -609,7 +612,6 @@
             }
         });
 
-        // Handle comment images upload
         document.addEventListener('click', function(e) {
             if (e.target.closest('.comment-upload-area')) {
                 const uploadArea = e.target.closest('.comment-upload-area');
@@ -650,7 +652,6 @@
             }
         });
 
-        // Handle comment image deletion
         document.addEventListener('click', function(e) {
             if (e.target.closest('.comment-images-preview .delete-btn')) {
                 const btn = e.target.closest('.delete-btn');
@@ -664,7 +665,6 @@
             }
         });
 
-        // Form submission
         document.getElementById('product-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -672,86 +672,132 @@
                 CKEDITOR.instances[instance].updateElement();
             }
 
-            const formData = new FormData(this);
+            const formData = new FormData();
 
-            // // Add product images
-            // uploadedFiles.forEach((file, index) => {
-            //     formData.append(`images[${index}]`, file);
-            // });
+            new FormData(this).forEach((value, key) => {
+                const input = this.querySelector(`[name="${key}"]`);
 
-            // // Add feedback images
-            // feedbackFiles.forEach((file, index) => {
-            //     formData.append(`feedbacks[${index}]`, file);
-            // });
+                if (!input || input.type !== 'file') {
+                    formData.append(key, value);
+                }
+            });
 
-            // // Add comment images
-            // Object.keys(commentFiles).forEach(commentIdx => {
-            //     if (commentFiles[commentIdx]) {
-            //         commentFiles[commentIdx].forEach((file, fileIdx) => {
-            //             formData.append(`comments[${commentIdx}][images][${fileIdx}]`, file);
-            //         });
-            //     }
-            // });
+            uploadedFiles.forEach((file, index) => {
+                formData.append(`images[${index}]`, file);
+            });
+
+            feedbackFiles.forEach((file, index) => {
+                formData.append(`feedbacks[${index}]`, file);
+            });
+
+            Object.keys(commentFiles).forEach(commentIdx => {
+                if (commentFiles[commentIdx] && commentFiles[commentIdx].length > 0) {
+                    commentFiles[commentIdx].forEach((file, fileIdx) => {
+                        formData.append(`comments[${commentIdx}][images][${fileIdx}]`, file);
+                    });
+                }
+            });
+
+            document.querySelectorAll('[id^="avatar-upload-"]').forEach(input => {
+                if (input.files && input.files[0]) {
+                    const commentIndex = input.id.replace('avatar-upload-', '');
+                    formData.append(`comments[${commentIndex}][avatar]`, input.files[0]);
+                }
+            });
 
             const submitBtn = document.querySelector('.btn-submit');
             const originalText = submitBtn.innerHTML;
+
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang lưu...';
             submitBtn.disabled = true;
 
-            [...formData.entries()].forEach(([key, value]) => {
-                console.log(key, value);
-            });
-
             try {
-                const response = await fetch('{{route('products.store')}}', {
+                const response = await fetch('{{ route('products.store') }}', {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': '{{csrf_token()}}'
-                    }
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
                 });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+
+                    if (errorData.errors) {
+                        displayValidationErrors(errorData.errors);
+                    }
+
+                    toastr.error(result.message);
+
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                resetForm();
+
+                toastr.success(result.message);
+
             } catch (error) {
-                
-            }
-            
-
-            // Simulate API call
-            // setTimeout(() => {
-            //     alert('Sản phẩm đã được thêm thành công!');
-            //     submitBtn.innerHTML = originalText;
-            //     submitBtn.disabled = false;
-
-            //     // Reset form
-            //     this.reset();
-            //     previewContainer.innerHTML = '';
-            //     feedbackPreviewContainer.innerHTML = '';
-            //     uploadedFiles = [];
-            //     feedbackFiles = [];
-            //     commentFiles = {};
-
-            //     // Reset avatar displays
-            //     document.querySelectorAll('.avatar-display').forEach(avatar => {
-            //         avatar.innerHTML = '<i class="fas fa-user-circle fa-3x text-muted"></i>';
-            //     });
-
-            //     // Reset comment image previews
-            //     document.querySelectorAll('.comment-images-preview').forEach(preview => {
-            //         preview.innerHTML = '';
-            //     });
-
-            //     // Redirect to product list
-            //     // window.location.href = '/admin/products';
-            // }, 2000);
-        });
-
-        // Cancel button
-        document.querySelector('.btn-cancel').addEventListener('click', function() {
-            if (confirm('Bạn có chắc muốn hủy? Tất cả dữ liệu đã nhập sẽ bị mất.')) {
-                // window.location.href = '/admin/products';
-                window.history.back();
+                toastr.error('Có lỗi xảy ra: ' + error.message);
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
-        // Number formatting
+        function resetForm() {
+            const form = document.getElementById('product-form');
+
+            form.reset();
+
+            document.getElementById('image-preview-container').innerHTML = '';
+            document.getElementById('feedback-preview-container').innerHTML = '';
+
+            uploadedFiles = [];
+            feedbackFiles = [];
+            commentFiles = {};
+
+            document.querySelectorAll('.avatar-display').forEach(avatar => {
+                avatar.innerHTML = '<i class="fas fa-user-circle fa-3x text-muted"></i>';
+            });
+
+            document.querySelectorAll('.comment-images-preview').forEach(preview => {
+                preview.innerHTML = '';
+            });
+
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].setData('');
+            }
+
+            document.querySelectorAll('.error-text').forEach(el => el.remove());
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        }
+
+        function displayValidationErrors(errors) {
+            // Xóa lỗi cũ
+            document.querySelectorAll('.error-text').forEach(el => el.remove());
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+            for (let field in errors) {
+                const messages = errors[field];
+                const input = document.querySelector(`[name="${field}"]`);
+
+                if (input) {
+                    input.classList.add('is-invalid');
+
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-text text-danger mt-1';
+                    errorDiv.textContent = messages[0];
+
+                    input.parentNode.insertBefore(errorDiv, input.nextSibling);
+                } else {
+                    console.warn('Không tìm thấy input:', field);
+                }
+            }
+        }
+
         document.querySelectorAll('.number-format').forEach(input => {
             input.addEventListener('input', function() {
                 let value = this.value.replace(/[^\d]/g, '');
@@ -761,23 +807,5 @@
                 }
             });
         });
-
-        function displayValidationErrors(errors) {
-            // $('.error-text').remove();
-            // $('.is-invalid').removeClass('is-invalid');
-
-            for (let field in errors) {
-                const messages = errors[field];
-                const inputName = field.replace(/\./g, '\\.');
-
-                const input = $(`[name="${inputName}"]`);
-                if (input.length) {
-                    input.addClass('is-invalid');
-                    input.after(`<div class="error-text text-danger">${messages[0]}</div>`);
-                } else {
-                    console.warn('Không tìm thấy input:', field);
-                }
-            }
-        }
     </script>
 @endsection

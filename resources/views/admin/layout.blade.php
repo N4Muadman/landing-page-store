@@ -22,7 +22,8 @@
     <script src="{{ asset('adminAssets/js/tech-stack.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
     <link rel="stylesheet" href="{{ asset('adminAssets/css/style-preset.css') }}">
-    @yield('style')    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    @yield('style')
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
@@ -91,7 +92,7 @@
                 <ul class="pc-navbar">
                     <li class="pc-item pc-caption"><label>Navigation</label></li>
                     <li class="pc-item pc-hasmenu">
-                        <a href="{{ route('dashboard') }}" class="pc-link">
+                        <a href="{{ route('orders.stats') }}" class="pc-link">
                             <span class="pc-mtext">Thống kê</span>
                         </a>
                     </li>
@@ -100,17 +101,12 @@
                             <span class="pc-mtext">Quản lý sản phẩm</span>
                         </a>
                     </li>
-                    
-                    {{-- <li class="pc-item pc-hasmenu">
-                        <a href="{{ route('admin.category.product.index') }}" class="pc-link">
-                            <span class="pc-mtext">Danh mục sản phẩm</span>
+
+                    <li class="pc-item pc-hasmenu">
+                        <a href="{{ route('orders.index') }}" class="pc-link">
+                            <span class="pc-mtext">Quản lý đơn hàng</span>
                         </a>
                     </li>
-                    <li class="pc-item pc-hasmenu">
-                        <a href="{{ route('admin.posts.index') }}" class="pc-link">
-                            <span class="pc-mtext">Quản lý bài viết</span>
-                        </a>
-                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -403,7 +399,8 @@
                 </ul>
             </div>
         </div>
-    </div><!-- [Page Specific JS] start -->
+    </div>
+    <!-- [Page Specific JS] start -->
     {{-- <script data-cfasync="false" src="{{ asset('adminAdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}"> --}}
     </script>
     <script src="{{ asset('adminAssets/js/plugins/apexcharts.min.js') }}"></script>
@@ -416,6 +413,7 @@
     <script src="{{ asset('adminAssets/js/plugins/feather.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         layout_change('light');
         change_box_container('false');

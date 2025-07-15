@@ -8,7 +8,7 @@ class Feedback extends Model
 {
     protected $fillable = [
         'product_id',
-        'image_path',
+        'path',
     ];
 
     public function product(){

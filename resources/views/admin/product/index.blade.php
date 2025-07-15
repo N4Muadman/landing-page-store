@@ -15,9 +15,8 @@
                     <div class="page-header-title">
                         <h2 class="mb-2">Danh sách sản phẩm</h2>
                         <a href="{{ route('products.create') }}"
-                            class="btn btn-light-primary d-flex align-items-center gap-2"><i class="ti ti-plus"></i> Thêm
-                            sản phẩm</a>
-
+                            class="btn btn-light-primary"><i class="ti ti-plus"></i> 
+                            Thêm sản phẩm</a>
                     </div>
                 </div>
             </div>
@@ -25,7 +24,7 @@
     </div>
     <form action="{{ route('products.index') }}" method="get">
         <div class="row align-items-center mb-3">
-            <div class="col-12 col-md-3">
+            <div class="col-9 col-md-3">
                 <input type="text" class="form-control" name="name" placeholder="Tìm kiếm theo tên"
                     value="{{ request('name') }}">
             </div>
@@ -43,6 +42,7 @@
                         <table class="table table-hover text-center" id="pc-dt-simple">
                             <thead>
                                 <tr>
+                                    <th>Tiêu đề</th>
                                     <th>Tên</th>
                                     <th>Ảnh</th>
                                     <th>Giá</th>
@@ -53,8 +53,9 @@
                             <tbody>
                                 @forelse ($products as $product)
                                     <tr>
+                                        <td>{{ $product->title }}</td>
                                         <td>{{ $product->name }}</td>
-                                        <td><img src="{{ $product->images?->first()->image_path }}" width="60px"
+                                        <td><img src="{{ '/storage/'. $product->images?->first()->path }}" width="60px"
                                                 alt="ảnh sp"></td>
                                         <td>{{ number_format($product->price, 0, '.', ',') }} đ</td>
                                         <td>
@@ -62,12 +63,12 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('product.detail', $product->id) }}"
+                                            <a href="{{route('landing-page', $product->slug)}}"
                                                 class="avtar avtar-details avtar-xs btn-link-secondary"
                                                 title="Xem chi tiết">
                                                 <i class="ti ti-eye f-20"></i>
                                             </a>
-                                            <a href="{{ route('admin.products.edit', $product->id) }}"class="avtar avtar-change avtar-xs btn-link-secondary"
+                                            <a href="{{ route('products.edit', $product->id) }}"class="avtar avtar-change avtar-xs btn-link-secondary"
                                                 data-id="{{ $product->id }}" title="Chỉnh sửa">
                                                 <i class="ti ti-edit f-20"></i>
                                             </a>
@@ -80,7 +81,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <p class="text-center">không có đơn hàng nào</p>
                                         </td>
                                     </tr>
