@@ -13,7 +13,7 @@
 
     <link rel="canonical" href="{{route('landing-page', $product->slug)}}">
     <meta property="og:url" content="{{route('landing-page', $product->slug)}}">
-    <meta property="og:title" content="{{strtoupper($product->name)}}">
+    <meta property="og:title" content="{{ucwords($product->name)}}">
     <meta property="og:type" content="website">
     <meta property="og:image"
         content="/storage/{{$product->images?->first()?->path}}">
