@@ -5,21 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ $product->title }}</title>
-    <meta name="description" content="Giải pháp điều khiển cửa cuốn từ xa qua điện thoại">
+    <meta name="description" content="{{$product->name}}">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="canonical" href="https://www.vietmech.online/ctcuacuontm">
-    <meta property="og:url" content="https://www.vietmech.online/ctcuacuontm">
-    <meta property="og:title" content="CÔNG TẮC CỬA CUỐN THÔNG MINH">
+    <link rel="canonical" href="{{route('landing-page', $product->slug)}}">
+    <meta property="og:url" content="{{route('landing-page', $product->slug)}}">
+    <meta property="og:title" content="{{$product->name}}">
     <meta property="og:type" content="website">
     <meta property="og:image"
-        content="https://static.ladipage.net/6815e126e029ba00980bf4b3/52-20250504032752-gfafm.png">
-    <meta property="og:description" content="Giải pháp điều khiển cửa cuốn từ xa qua điện thoại">
+        content="/storage/{{$product->images?->first()?->path}}">
+    <meta property="og:description" content="{{$product->name}}">
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/storage/{{$product->images?->first()?->path}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="...">
 
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
