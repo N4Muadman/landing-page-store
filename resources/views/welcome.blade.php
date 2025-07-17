@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Đồ Gia Dụng Plus - Đồ Gia Dụng Tốt">
     <meta property="og:description" content="Đồ Gia Dụng Plus - Đồ Gia Dụng Tốt. Chuyên cung cấp thiết bị nhà bếp, nội thất, dụng cụ gia đình chất lượng tốt nhất.">
-    <meta property="og:image" content="https://dogiadungplus.top/logo.jpg?text=Đồ+Gia+Dụng+Plus">
+    <meta property="og:image" content="https://giadungplus.top/logo.jpg?text=Đồ+Gia+Dụng+Plus">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -21,10 +21,10 @@
     <meta property="twitter:description" content="Đồ Gia Dụng Plus - Đồ Gia Dụng Tốt. Chuyên cung cấp thiết bị nhà bếp, nội thất, dụng cụ gia đình chất lượng tốt nhất.">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://dogiadungplus.top/">
+    <link rel="canonical" href="https://giadungplus.top/">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://dogiadungplus.top/favicon.ico?text=🏠">
+    <link rel="icon" type="image/x-icon" href="https://giadungplus.top/favicon.ico?text=🏠">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -33,8 +33,8 @@
         "@type": "Organization",
         "name": "Đồ Gia Dụng Plus",
         "description": "Đồ Gia Dụng Plus - Đồ Gia Dụng Tốt. Chuyên cung cấp thiết bị nhà bếp, nội thất, dụng cụ gia đình chất lượng tốt nhất",
-        "url": "https://dogiadungplus.top",
-        "logo": "https://dogiadungplus.top/logo.jpg",
+        "url": "https://giadungplus.top",
+        "logo": "https://giadungplus.top/logo.jpg",
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+84977-532-646",
@@ -65,7 +65,7 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
