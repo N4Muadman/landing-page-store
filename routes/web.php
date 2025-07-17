@@ -18,8 +18,6 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('place-order', [OrderController::class, 'store'])->name('place_order');
 
-Route::resource('quan-ly-san-pham', ProductController::class)->names('products')->parameters(['quan-ly-san-pham' => 'product']);
-
 Route::middleware('is_admin')->prefix('admin')->group(function () {
     Route::get('/', [OrderController::class, 'stats'])->name('dashboard');
     Route::resource('quan-ly-san-pham', ProductController::class)->names('products')->parameters(['quan-ly-san-pham' => 'product']);

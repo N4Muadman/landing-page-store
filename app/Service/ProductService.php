@@ -164,6 +164,7 @@ class ProductService
             throw $e;
         }
     }
+
     public function updateProduct(Product $product, array $data)
     {
         try {
