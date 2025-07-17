@@ -96,13 +96,13 @@ class ProductController extends Controller
     /**
      * Cập nhật thông tin sản phẩm
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
         try {
+                        Log::info($request->all());
 
-            $data = $request->validated();
+            // $data = $request->validated();
             return response()->json(['message' => 'Sửa sản phẩm thành công'], 200);
-            Log::info($data);
 
             $product = $this->product_service->updateProduct($product, $data);
 
