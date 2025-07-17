@@ -64,7 +64,7 @@
         <div class="navbar-wrapper">
             <div class="m-header" style="height: 200px !important">
                 <a href="{{ route('dashboard') }}" class="b-brand text-primary">
-                    <img src="{{ asset('assets/img/logo.png') }}" class="img-fluid" height="150px" width="250px"
+                    <img src="/logo.jpg" class="img-fluid" height="150px" width="250px"
                         alt="logo">
                 </a>
             </div>
