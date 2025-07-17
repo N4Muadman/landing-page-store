@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->validateCsrfTokens(except: [
             'place-order',
+            'quan-ly-san-pham/*',
             'admin/quan-ly-san-pham/*'
         ]);
     })
