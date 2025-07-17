@@ -92,7 +92,7 @@
                 <ul class="pc-navbar">
                     <li class="pc-item pc-caption"><label>Navigation</label></li>
                     <li class="pc-item pc-hasmenu">
-                        <a href="{{ route('orders.stats') }}" class="pc-link">
+                        <a href="{{ route('dashboard') }}" class="pc-link">
                             <span class="pc-mtext">Thống kê</span>
                         </a>
                     </li>
