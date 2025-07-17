@@ -31,22 +31,22 @@ class StoreProductRequest extends FormRequest
             'sold' => 'required',
 
             'images' => 'required|array',
-            'images.*' => 'file',
+            'images.*' => 'image|mimes:jpeg,png,webp,web,jpg,gif|max:2048',
 
             'options' => 'nullable|array',
             'options.*.name' => 'required',
             'name_option' => 'required',
 
             'comments' => 'nullable|array',
-            'comments.*.avatar' => 'required|file',
+            'comments.*.avatar' => 'image|mimes:jpeg,png,webp,web,jpg,gif|max:2048',
             'comments.*.name' => 'required',
             'comments.*.option' => 'required',
             'comments.*.content' => 'required',
             'comments.*.images' => 'required|array',
-            'comments.*.images.*' => 'file',
+            'comments.*.images.*' => 'image|mimes:jpeg,png,jpg,webp,web,gif|max:2048',
 
             'feedbacks' => 'nullable|array',
-            'feedbacks.*' => 'required|file',
+            'feedbacks.*' => 'image|mimes:jpeg,png,jpg,webp,web,gif|max:2048',
 
             'description' => 'required',
             'pixel_fb' => 'nullable',
