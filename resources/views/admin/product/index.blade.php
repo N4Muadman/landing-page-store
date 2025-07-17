@@ -15,7 +15,7 @@
                     <div class="page-header-title">
                         <h2 class="mb-2">Danh sách sản phẩm</h2>
                         <a href="{{ route('products.create') }}"
-                            class="btn btn-light-primary"><i class="ti ti-plus"></i> 
+                            class="btn btn-light-primary"><i class="ti ti-plus"></i>
                             Thêm sản phẩm</a>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                 modal.hide();
 
                 // Show success message (you can implement toast notification here)
-                alert('Sản phẩm đã được xóa thành công!');
+                toastr.success('Sản phẩm đã được xóa thành công!');
 
                 // Reload page or remove row from table
                 location.reload();
