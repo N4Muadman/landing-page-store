@@ -99,8 +99,10 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         try {
+
             $data = $request->validated();
             Log::info($data);
+            return response()->json(['message' => 'Sửa sản phẩm thành công'], 200);
 
             $product = $this->product_service->updateProduct($product, $data);
 
