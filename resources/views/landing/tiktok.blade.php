@@ -589,7 +589,7 @@
                                         @endfor
                                     </div>
 
-                                    <div class="comment-option">{{ $comment->option }}</div>
+                                    <div class="comment-option">{{ $product->name_option .': ' .$comment->option }}</div>
                                     <div class="comment-content">{{ $comment->content }}</div>
                                 </div>
                             </div>
