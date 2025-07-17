@@ -100,6 +100,7 @@ class ProductController extends Controller
     {
         try {
             $data = $request->validated();
+            Log::info($data);
 
             $product = $this->product_service->updateProduct($product, $data);
 

@@ -22,8 +22,6 @@
 
     <div class="container">
         <form id="product-form" enctype="multipart/form-data">
-            @method('PUT')
-
             <!-- Basic Information -->
             <div class="section-card">
                 <div class="section-title">
