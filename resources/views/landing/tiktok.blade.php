@@ -49,17 +49,17 @@
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '691798903263793');
+        fbq('init', '{{$product->pixel_fb}}');
         fbq('track', 'PageView');
-        fbq('track', 'ViewContent');
     </script>
     <noscript>
         <img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=691798903263793&ev=PageView&noscript=1" />
+            src="https://www.facebook.com/tr?id={{$product->pixel_fb}}&ev=PageView&noscript=1" />
     </noscript>
 </head>
 
-<body class="lazyload"><svg xmlns="http://www.w3.org/2000/svg"
+<body class="lazyload">
+    <svg xmlns="http://www.w3.org/2000/svg"
         style="width: 0px; height: 0px; position: absolute; overflow: hidden; display: none;">
         <symbol id="shape_vypbDsZoXx" viewBox="0 0 32 32">
             <g data-name="31">
@@ -96,7 +96,6 @@
         </symbol>
     </svg>
     <div class="ladi-wraper">
-
         <div id="notify-box" style="display: none; position: absolute; top: 95px; width: 300px; z-index: 99999">
             <div id="notify-card"
                 style="background: #fff; border-radius: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 10px; display: flex; align-items: center; gap: 10px;">
